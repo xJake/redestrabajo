@@ -1,0 +1,74 @@
+class Grafo:
+
+    def __init__(self, vertices):
+        self.V = vertices   # Nro de vertice
+        self.grafo = []     # Arreglo de aristas
+
+    # Agregar aristas siendo o el origen d la Distancia y p el peso
+    def agr_arista(self, o, d, p):
+        self.grafo.append([o, d, p])
+
+    # Imprimir la solucion
+    def print_solucion(self, dist):
+        print("Distancia de vertice desde el origen")
+        for i in range(self.V):
+            print("{0}\t\t{1}".format(i, dist[i]))
+
+    def vector_distancia(self, origen):
+
+        # Paso 1: Se llena el arreglo de distancia y elarreglo del predecesor
+        dist = [float("Inf")] * self.V
+        # definir la distancaia del vertice origen
+        dist[origen] = 0
+
+        # Paso 2: Relajar aristas |V| - 1 veces
+        for _ in range(self.V - 1):
+            for o, d, p in self.grafo:
+                if dist[o] != float("Inf") and dist[o] + p < dist[d]:
+                    dist[d] = dist[o] + p
+
+        # Paso 3 : Detectar ciclo negativo
+        # Si el valor cambia entonces hay un ciclo negativo y no se puede encontrar las menores distancias
+        for o, d, p in self.grafo:
+            if dist[o] != float("Inf") and dist[o] + p < dist[d]:
+                print("El grafo contiene ciclo negativo")
+                return
+
+        # No se encontro un ciclo negativo
+        # Imprimir los arreglos de distancia y los predecesor
+        self.print_solucion(dist)
+
+
+g = Grafo(8)
+g.agr_arista(0, 1, 3)
+g.agr_arista(1, 0, 3)
+g.agr_arista(1, 2, 1)
+g.agr_arista(2, 1, 1)
+g.agr_arista(0, 5, 11)
+g.agr_arista(5, 0, 11)
+g.agr_arista(0, 6, 5)
+g.agr_arista(6, 0, 5)
+g.agr_arista(5, 4, 1)
+g.agr_arista(4, 5, 1)
+g.agr_arista(5, 6, 3)
+g.agr_arista(6, 5, 3)
+g.agr_arista(1, 6, 2)
+g.agr_arista(6, 1, 2)
+g.agr_arista(6, 2, 8)
+g.agr_arista(2, 6, 8)
+g.agr_arista(2, 7, 5)
+g.agr_arista(7, 2, 5)
+g.agr_arista(6, 7, 10)
+g.agr_arista(7, 6, 10)
+g.agr_arista(6, 3, 7)
+g.agr_arista(3, 6, 7)
+g.agr_arista(7, 3, 3)
+g.agr_arista(3, 7, 3)
+g.agr_arista(6, 4, 2)
+g.agr_arista(4, 6, 2)
+g.agr_arista(4, 3, 7)
+g.agr_arista(3, 4, 7)
+
+
+
+g.vector_distancia(0)
