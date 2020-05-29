@@ -6,3 +6,4 @@ g.agr_arista(2, 1,5)
 del 1 al 2 y del 2 al 1 tienen el mismo peso
 el formato es 
 g.agr_arista(origen, destino, peso) para agregar aristas
+La página para ejecutar el código es esta: https://www.onlinegdb.com/online_python_compiler , se ejecuta en python 3.
